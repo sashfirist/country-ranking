@@ -20,6 +20,10 @@ public class CountryDetails {
     @Column(name = "year")
     private int year;
 
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
+
     public long getId() {
         return id;
     }
@@ -50,6 +54,14 @@ public class CountryDetails {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     @Override

@@ -15,8 +15,7 @@ public class Country {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "country_id")
+    @OneToMany(mappedBy = "country",cascade = CascadeType.ALL)
     private List<CountryDetails> countryDetailsList = new ArrayList<>();
 
     public long getId() {
