@@ -2,10 +2,12 @@ package ua.com.codespace.dao;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 import ua.com.codespace.model.Country;
 
 import java.util.List;
 
+@Repository("countryDao")
 public class CountryDaoImpl extends AbstractDao<Long,Country> implements CountryDao {
 
     @Override

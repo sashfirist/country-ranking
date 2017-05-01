@@ -1,21 +1,24 @@
 package ua.com.codespace;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import ua.com.codespace.model.Country;
-import ua.com.codespace.model.CountryDetails;
-import ua.com.codespace.model.InformationType;
+import ua.com.codespace.service.jsoup.DataPersistence;
+import ua.com.codespace.service.jsoup.DataPersistenceImpl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 public class Main {
 
     public static void main(String[] args) {
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+
+
+        DataPersistence dataPersistence = new DataPersistenceImpl();
+        try {
+            dataPersistence.saveArea();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        /*StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
         SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 
         CountryDetails countryDetails = new CountryDetails();
@@ -46,6 +49,6 @@ public class Main {
         session.getTransaction().commit();
 
         session.close();
-        sessionFactory.close();
+        sessionFactory.close();*/
     }
 }
