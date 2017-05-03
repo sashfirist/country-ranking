@@ -10,8 +10,8 @@ public class CountryDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "information")
     @Enumerated(EnumType.STRING)
+    @Column(name = "information")
     private InformationType information;
 
     @Column(name = "value")
@@ -74,7 +74,8 @@ public class CountryDetails {
         if (getId() != that.getId()) return false;
         if (Double.compare(that.getValue(), getValue()) != 0) return false;
         if (getYear() != that.getYear()) return false;
-        return getInformation() != null ? getInformation().equals(that.getInformation()) : that.getInformation() == null;
+        if (getInformation() != that.getInformation()) return false;
+        return getCountry().equals(that.getCountry());
     }
 
     @Override
@@ -82,10 +83,11 @@ public class CountryDetails {
         int result;
         long temp;
         result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + (getInformation() != null ? getInformation().hashCode() : 0);
+        result = 31 * result + getInformation().hashCode();
         temp = Double.doubleToLongBits(getValue());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + getYear();
+        result = 31 * result + getCountry().hashCode();
         return result;
     }
 
@@ -93,9 +95,10 @@ public class CountryDetails {
     public String toString() {
         return "CountryDetails{" +
                 "id=" + id +
-                ", information='" + information + '\'' +
+                ", information=" + information +
                 ", value=" + value +
                 ", year=" + year +
+                ", country=" + country +
                 '}';
     }
 }

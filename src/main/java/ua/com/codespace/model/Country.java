@@ -15,8 +15,8 @@ public class Country {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "country",cascade = CascadeType.ALL)
-    private List<CountryDetails> countryDetailsList = new ArrayList<>();
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
+    private List<CountryDetails> countryDetails = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -34,12 +34,12 @@ public class Country {
         this.name = name;
     }
 
-    public List<CountryDetails> getCountryDetailsList() {
-        return countryDetailsList;
+    public List<CountryDetails> getCountryDetails() {
+        return countryDetails;
     }
 
-    public void setCountryDetailsList(List<CountryDetails> countryDetailsList) {
-        this.countryDetailsList = countryDetailsList;
+    public void setCountryDetails(List<CountryDetails> countryDetails) {
+        this.countryDetails = countryDetails;
     }
 
     @Override
@@ -50,15 +50,15 @@ public class Country {
         Country country = (Country) o;
 
         if (getId() != country.getId()) return false;
-        if (getName() != null ? !getName().equals(country.getName()) : country.getName() != null) return false;
-        return getCountryDetailsList() != null ? getCountryDetailsList().equals(country.getCountryDetailsList()) : country.getCountryDetailsList() == null;
+        if (!getName().equals(country.getName())) return false;
+        return getCountryDetails() != null ? getCountryDetails().equals(country.getCountryDetails()) : country.getCountryDetails() == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        result = 31 * result + (getCountryDetailsList() != null ? getCountryDetailsList().hashCode() : 0);
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + (getCountryDetails() != null ? getCountryDetails().hashCode() : 0);
         return result;
     }
 
@@ -67,7 +67,7 @@ public class Country {
         return "Country{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", countryDetailsList=" + countryDetailsList +
+                ", countryDetails=" + countryDetails +
                 '}';
     }
 }

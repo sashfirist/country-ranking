@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface CountryDetailsDao {
 
-    List<CountryDetails> getAllCountryDetails();
     CountryDetails getById(long id);
     CountryDetails getByYear(int year);
-    CountryDetails getByInformationName(InformationType information);
+    CountryDetails getByInformationType(InformationType informationType);
     void save(CountryDetails countryDetails);
     void deleteCountryDetails(CountryDetails countryDetails);
+    List<CountryDetails> getAllCountryDetails();
 }
