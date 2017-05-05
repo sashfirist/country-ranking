@@ -1,5 +1,7 @@
 package ua.com.codespace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,7 +22,8 @@ public class CountryDetails {
     @Column(name = "year")
     private int year;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "country_id")
     private Country country;
 
@@ -98,7 +101,6 @@ public class CountryDetails {
                 ", information=" + information +
                 ", value=" + value +
                 ", year=" + year +
-                ", country=" + country +
                 '}';
     }
 }

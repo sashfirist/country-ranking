@@ -48,7 +48,7 @@ public class DataExtractionImpl implements DataExtraction {
         Element table = null;
         try {
             Document doc = Jsoup.connect("http://gtmarket.ru/ratings/quality-of-life-index/info").get();
-            table = doc.select("table[class='table-data']").first();
+            table = doc.select("table[class=table-data]").first();
         } catch (IOException e) {
             e.printStackTrace();
         }

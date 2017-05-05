@@ -12,7 +12,7 @@ public class AppController {
     @Autowired
     DataPersistence dataPersistence;
 
-    @RequestMapping
+    @RequestMapping({"","/addinfo"})
     public String getInformation (){
         return "addinfo";
     }
@@ -20,24 +20,24 @@ public class AppController {
     @RequestMapping("/area")
     public String getArea (){
         dataPersistence.saveArea();
-        return "redirect:/addinfo";
+        return "redirect:addinfo";
     }
 
     @RequestMapping("/pop")
     public String getPop(){
         dataPersistence.savePopulation();
-        return "redirect:/addinfo";
+        return "redirect:addinfo";
     }
 
     @RequestMapping("/duration")
     public String getDuration(){
         dataPersistence.saveAvgLifeDuration();
-        return "redirect:/addinfo";
+        return "redirect:addinfo";
     }
 
     @RequestMapping("/lqindex")
     public String getIndex(){
         dataPersistence.saveLifeQualityIndex();
-        return "redirect:/addinfo";
+        return "redirect:addinfo";
     }
 }

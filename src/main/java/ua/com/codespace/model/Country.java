@@ -15,7 +15,7 @@ public class Country {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CountryDetails> countryDetails = new ArrayList<>();
 
     public long getId() {
