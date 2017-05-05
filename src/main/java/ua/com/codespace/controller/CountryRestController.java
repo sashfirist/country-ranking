@@ -16,7 +16,7 @@ public class CountryRestController {
     @Autowired
     private CountryService countryService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<Country> getAllCountries(){
         return countryService.findAllCountries();
     }
