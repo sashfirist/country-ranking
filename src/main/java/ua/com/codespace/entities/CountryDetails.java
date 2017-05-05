@@ -1,7 +1,5 @@
 package ua.com.codespace.entities;
 
-import ua.com.codespace.configuration.InformationType;
-
 import javax.persistence.*;
 
 @Entity
