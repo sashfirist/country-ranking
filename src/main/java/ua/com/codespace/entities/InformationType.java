@@ -1,4 +1,4 @@
-package ua.com.codespace.configuration;
+package ua.com.codespace.entities;
 
 public enum InformationType {
     AREA,
