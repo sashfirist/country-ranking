@@ -9,7 +9,7 @@ import ua.com.codespace.model.Country;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional()
 public class CountryServiceImpl implements CountryService {
 
     @Autowired

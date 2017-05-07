@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("ua.com.codespace.controller")
+@ComponentScan({"ua.com.codespace.web","ua.com.codespace.rest"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean

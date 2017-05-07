@@ -1,4 +1,4 @@
-package ua.com.codespace.controller;
+package ua.com.codespace.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -38,6 +38,9 @@ public class DataPersistenceImpl implements DataPersistence {
             countryDetails.setCountry(country);
             countryDetails.setYear(2017);
             countryDetails.setInformation(InformationType.AREA);
+
+            //TODO: add validation to avoid duplicate details
+
             country.getCountryDetails().add(countryDetails);
             countryDetailsDao.save(countryDetails);
         }
@@ -57,6 +60,9 @@ public class DataPersistenceImpl implements DataPersistence {
             countryDetails.setCountry(country);
             countryDetails.setYear(2017);
             countryDetails.setInformation(InformationType.POPULATION);
+
+            //TODO: add validation to avoid duplicate details
+
             country.getCountryDetails().add(countryDetails);
             countryDetailsDao.save(countryDetails);
         }
@@ -75,6 +81,9 @@ public class DataPersistenceImpl implements DataPersistence {
             countryDetails.setCountry(country);
             countryDetails.setYear(2017);
             countryDetails.setInformation(InformationType.AVG_LIFE_DURATION);
+
+            //TODO: add validation to avoid duplicate details
+
             country.getCountryDetails().add(countryDetails);
             countryDetailsDao.save(countryDetails);
         }
@@ -93,6 +102,9 @@ public class DataPersistenceImpl implements DataPersistence {
             countryDetails.setCountry(country);
             countryDetails.setYear(2016);
             countryDetails.setInformation(InformationType.LIFE_QUALITY_INDEX);
+
+            //TODO: add validation to avoid duplicate details
+
             country.getCountryDetails().add(countryDetails);
             countryDetailsDao.save(countryDetails);
         }
