@@ -1,8 +1,7 @@
 package ua.com.codespace.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "country")
@@ -15,9 +14,17 @@ public class Country {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "country_id")
-    private List<CountryDetails> countryDetailsList = new ArrayList<>();
+    private List<CountryDetails> countryDetailList = new ArrayList<>();
+
+    public List<CountryDetails> getCountryDetailList() {
+        return countryDetailList;
+    }
+
+    public void setCountryDetailList(List<CountryDetails> countryDetailList) {
+        this.countryDetailList = countryDetailList;
+    }
 
     public long getId() {
         return id;
@@ -35,31 +42,23 @@ public class Country {
         this.name = name;
     }
 
-    public List<CountryDetails> getCountryDetailsList() {
-        return countryDetailsList;
-    }
-
-    public void setCountryDetailsList(List<CountryDetails> countryDetailsList) {
-        this.countryDetailsList = countryDetailsList;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Country)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Country country = (Country) o;
 
-        if (getId() != country.getId()) return false;
-        if (getName() != null ? !getName().equals(country.getName()) : country.getName() != null) return false;
-        return getCountryDetailsList() != null ? getCountryDetailsList().equals(country.getCountryDetailsList()) : country.getCountryDetailsList() == null;
+        if (id != country.id) return false;
+        if (name != null ? !name.equals(country.name) : country.name != null) return false;
+        return countryDetailList != null ? countryDetailList.equals(country.countryDetailList) : country.countryDetailList == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        result = 31 * result + (getCountryDetailsList() != null ? getCountryDetailsList().hashCode() : 0);
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (countryDetailList != null ? countryDetailList.hashCode() : 0);
         return result;
     }
 
@@ -68,7 +67,7 @@ public class Country {
         return "Country{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", countryDetailsList=" + countryDetailsList +
+                ", countryDetailList=" + countryDetailList +
                 '}';
     }
 }

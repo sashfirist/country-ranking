@@ -8,21 +8,21 @@ apply plugin: 'idea'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+    compile group: 'org.springframework', name: 'spring-context', version: '4.3.7.RELEASE'
+    compile group: 'org.springframework', name: 'spring-orm', version: '4.3.7.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '4.3.7.RELEASE'
 
-	testCompile "junit:junit:$junitVersion"
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.194'
 
-	compile "org.springframework:spring-context:$springVersion"
-	compile "org.springframework:spring-webmvc:$springVersion"
-	providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.7.2'
 
-	compile 'org.hibernate:hibernate-core:5.2.9.Final'
-	compile group: 'org.hibernate', name: 'hibernate-ehcache', version: '5.2.9.Final'
-	compile group: 'com.h2database', name: 'h2', version: '1.4.194'
+    compile group: 'log4j', name: 'log4j', version: '1.2.16'
 
-	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.0'
-	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.0'
+    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 }

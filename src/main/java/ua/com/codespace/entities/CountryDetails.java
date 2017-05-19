@@ -55,25 +55,25 @@ public class CountryDetails {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CountryDetails)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        CountryDetails that = (CountryDetails) o;
+        CountryDetails details = (CountryDetails) o;
 
-        if (getId() != that.getId()) return false;
-        if (Double.compare(that.getValue(), getValue()) != 0) return false;
-        if (getYear() != that.getYear()) return false;
-        return getInformation() != null ? getInformation().equals(that.getInformation()) : that.getInformation() == null;
+        if (id != details.id) return false;
+        if (Double.compare(details.value, value) != 0) return false;
+        if (year != details.year) return false;
+        return information == details.information;
     }
 
     @Override
     public int hashCode() {
         int result;
         long temp;
-        result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + (getInformation() != null ? getInformation().hashCode() : 0);
-        temp = Double.doubleToLongBits(getValue());
+        result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (information != null ? information.hashCode() : 0);
+        temp = Double.doubleToLongBits(value);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + getYear();
+        result = 31 * result + year;
         return result;
     }
 
@@ -81,7 +81,7 @@ public class CountryDetails {
     public String toString() {
         return "CountryDetails{" +
                 "id=" + id +
-                ", information='" + information + '\'' +
+                ", information=" + information +
                 ", value=" + value +
                 ", year=" + year +
                 '}';
