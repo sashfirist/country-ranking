@@ -1,6 +1,7 @@
 package ua.com.codespace.dao;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -32,6 +33,18 @@ public class CountryDao {
         return getRankingByParameter(InformationType.AREA);
     }
 
+    public List<Country> findRankingByPopulation() {
+        return getRankingByParameter(InformationType.POPULATION);
+    }
+
+    public List<Country> findRankingByLifeDuration() {
+        return getRankingByParameter(InformationType.AVG_LIFE_DURATION);
+    }
+
+    public List<Country> findRankingByLifeQuality() {
+        return getRankingByParameter(InformationType.LIFE_QUALITY_INDEX);
+    }
+
     private List<Country> getRankingByParameter(InformationType type) {
         Session session = sessionFactory.openSession();
         String hql = "from Country c inner join c.countryDetailList d where d.information = :ranking order by 4 asc";
@@ -48,17 +61,22 @@ public class CountryDao {
         return list;
     }
 
-    public void saveCountries(Map<Country, CountryDetails> cntMap) {
+    public void saveCountries(List<Country> cntList) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        for (Map.Entry<Country, CountryDetails> entry : cntMap.entrySet()) {
-            Country cnt = entry.getKey();
-            CountryDetails cnD = entry.getValue();
-            cnt.setCountryDetailList(new ArrayList<>(Arrays.asList(cnD)));
+        for (Country cnt : cntList) {
+            cnt.setId(getIdByName(cnt.getName()));
             session.save(cnt);
         }
         session.getTransaction().commit();
         session.close();
+    }
+
+    private long getIdByName(String name) {
+        String hql = "select c.id from Country c where c.name = :name";
+        Query query = sessionFactory.openSession().createQuery(hql);
+        query.setParameter("name", name);
+        return (Long)query.getSingleResult();
     }
 
     public Country findCountryById(Long id) {

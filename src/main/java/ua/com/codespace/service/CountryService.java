@@ -28,44 +28,73 @@ public class CountryService {
         this.countryDao = countryDao;
     }
 
-    public Map<Country, CountryDetails> getRankingByArea() {
-        List<Country> rankingByArea = countryDao.findRankingByArea();
-        Map<Country, CountryDetails> cntMap = new HashMap<>();
-        for(Country item : rankingByArea){
-            cntMap.put(item, item.getCountryDetailList().get(0));
+    public List<Country> getRankingType(String ranking){
+        InformationType item = InformationType.get(ranking);
+        List<Country> list;
+        switch (item) {
+            case AREA:
+                list = countryDao.findRankingByArea();
+                break;
+            case POPULATION:
+                list = countryDao.findRankingByPopulation();
+                break;
+            case AVG_LIFE_DURATION:
+                list = countryDao.findRankingByLifeDuration();
+                break;
+            case LIFE_QUALITY_INDEX:
+                list = countryDao.findRankingByLifeQuality();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid Ranking Type");
         }
-        return cntMap;
+        return list;
     }
 
-    public Map<Country, CountryDetails> parseRankingByArea() throws IOException {
-        URL url = new URL("http://ostranah.ru/_lists/population.php");
+    public List<Country> parseRanking(String ranking) throws IOException {
+        URL url = new URL(getUrl(ranking));
         Document doc = Jsoup.parse(url, 3000);
         Elements rows = doc.select("table#sort-table tr");
-        Map<Country, CountryDetails> cntMap = new HashMap<>();
+        List<Country> cntList = new ArrayList<>();
         GregorianCalendar gr = new GregorianCalendar();
         gr.setTime(new Date());
-
+        String value = null;
         for (int i = 1; i < rows.size(); i++) {
             Element row = rows.get(i);
             String id = row.select("th").text();
             String countryName = row.select("td > a").text();
-            String population = row.select("td.digits").text().replace(" ", "");
+            if(ranking.equalsIgnoreCase("population") || ranking.equalsIgnoreCase("area")){
+                value = row.select("td.digits").text().replace(" ", "");
+            } else {
+                value = row.select("td:eq(2)").text().replace(" ", "");
+            }
 
             CountryDetails cD = new CountryDetails();
-            cD.setInformation(InformationType.AREA);
-            cD.setValue(Double.parseDouble(population));
+            cD.setInformation(InformationType.get(ranking));
+            cD.setValue(Double.parseDouble(value));
             cD.setYear(gr.get(Calendar.YEAR));
 
             Country country = new Country();
             country.setName(countryName);
-            country.setId(Integer.parseInt(id));
+            //country.setId(Integer.parseInt(id));
+            country.setCountryDetailList(new ArrayList<>(Arrays.asList(cD)));
 
-            cntMap.put(country, cD);
+            cntList.add(country);
         }
-        return cntMap;
+        return cntList;
+
     }
 
-    public void saveRankingByArea( Map<Country, CountryDetails> areaRanking) {
+    private String getUrl(String ranking) {
+        switch(ranking){
+            case "area": return "http://ostranah.ru/_lists/population.php";
+            case "population": return "http://ostranah.ru/_lists/population.php";
+            case "average-life-duration": return "http://ostranah.ru/_lists/life_expectancy.php";
+            case "life-quality-index": return "http://ostranah.ru/_lists/population_growth.php";
+            default: throw new IllegalArgumentException("No inquired ranking found");
+        }
+    }
+
+    public void saveRankingByArea( List<Country> areaRanking) {
         countryDao.saveCountries(areaRanking);
     }
 

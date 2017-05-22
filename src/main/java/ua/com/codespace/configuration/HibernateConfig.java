@@ -57,7 +57,7 @@ public class HibernateConfig {
         Properties properties = new Properties();
         properties.put(AvailableSettings.DIALECT, "org.hibernate.dialect.H2Dialect");
         properties.put(AvailableSettings.SHOW_SQL, "true");
-        properties.put(AvailableSettings.HBM2DDL_AUTO, "update");
+        properties.put(AvailableSettings.HBM2DDL_AUTO, "create");
         properties.put(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "org.springframework.orm.hibernate5.SpringSessionContext");
         return properties;
     }

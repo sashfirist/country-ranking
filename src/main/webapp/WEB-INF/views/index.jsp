@@ -7,6 +7,12 @@
 </head>
 <body>
 <div class="container">
+    <a href="${pageContext.request.contextPath}/ranking/area" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Area</a>
+    <a href="${pageContext.request.contextPath}/ranking/population" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Population</a>
+    <a href="${pageContext.request.contextPath}/ranking/average-life-duration" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Average Life Duration</a>
+    <a href="${pageContext.request.contextPath}/ranking/life-quality-index" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Life Quality</a>
+</div>
+<div class="container">
     <table class="table">
         <thead>
         <tr>
